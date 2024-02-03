@@ -1,2 +1,42 @@
 ---
 
+- name: install packages
+  package:
+    name:
+      - automake
+      - bison
+      - chrpath
+      - flex
+      - g++
+      - git
+      - gperf
+      - gawk
+      - help2man
+      - libexpat1-dev
+      - libncurses5-dev
+      - libsdl1.2-dev
+      - libtool
+      - libtool-bin
+      - libtool-doc
+      - texinfo
+      - qemu-user
+      - qemu-system-arm
+    autoclean: yes
+
+- name: clone embedded-qemu-labs
+  become: yes
+  become_user: '{{ username }}'
+  git:
+    repo: 'https://github.com/dooraim/embedded-qemu-labs.git'
+    version: master
+    dest: '{{ mount_point }}/embedded-qemu-labs'
+
+- name: clone crosstool-ng
+  become: yes
+  become_user: '{{ username }}'
+  git:
+    repo: 'https://github.com/crosstool-ng/crosstool-ng.git'
+    dest: '{{ mount_point }}/crosstool-ng'
+    depth: 1
+    version: master
+
